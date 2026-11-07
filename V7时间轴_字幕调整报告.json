@@ -1,0 +1,358 @@
+{
+  "source_json": "E:\\CrasheyeVideo\\V7时间轴与单行字幕说明.json",
+  "video_count": 39,
+  "timeline_count": 38,
+  "cue_count": 38,
+  "adjusted_cue_count": 38,
+  "issues": [
+    "v2_02: source SHA-256 differs from current episode/shot file (54deeff96c7a != ffd16c6d8f92)"
+  ],
+  "source_checks": [
+    {
+      "id": "v2_01",
+      "episode": 1,
+      "shot": 20,
+      "source_duration": 5.041667,
+      "timeline_duration": 5.083333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_02",
+      "episode": 1,
+      "shot": 30,
+      "source_duration": 5.041667,
+      "timeline_duration": 4.125,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_03",
+      "episode": 1,
+      "shot": 40,
+      "source_duration": 5.041667,
+      "timeline_duration": 3.8333333333333335,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_04",
+      "episode": 2,
+      "shot": 10,
+      "source_duration": 5.041667,
+      "timeline_duration": 5.583333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_05",
+      "episode": 3,
+      "shot": 10,
+      "source_duration": 5.041667,
+      "timeline_duration": 5.333333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_06",
+      "episode": 3,
+      "shot": 20,
+      "source_duration": 5.041667,
+      "timeline_duration": 4.583333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_07",
+      "episode": 3,
+      "shot": 30,
+      "source_duration": 5.041667,
+      "timeline_duration": 4.833333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_08",
+      "episode": 3,
+      "shot": 40,
+      "source_duration": 5.041667,
+      "timeline_duration": 5.083333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_09",
+      "episode": 3,
+      "shot": 50,
+      "source_duration": 5.041667,
+      "timeline_duration": 5.083333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_10",
+      "episode": 4,
+      "shot": 30,
+      "source_duration": 5.041667,
+      "timeline_duration": 4.583333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_11",
+      "episode": 5,
+      "shot": 40,
+      "source_duration": 5.041667,
+      "timeline_duration": 4.333333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_12",
+      "episode": 5,
+      "shot": 50,
+      "source_duration": 5.041667,
+      "timeline_duration": 4.333333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_13",
+      "episode": 5,
+      "shot": 60,
+      "source_duration": 5.041667,
+      "timeline_duration": 5.583333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_14",
+      "episode": 6,
+      "shot": 20,
+      "source_duration": 5.041667,
+      "timeline_duration": 5.583333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_15",
+      "episode": 7,
+      "shot": 10,
+      "source_duration": 5.041667,
+      "timeline_duration": 5.333333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_16",
+      "episode": 7,
+      "shot": 20,
+      "source_duration": 5.041667,
+      "timeline_duration": 5.5,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_17",
+      "episode": 8,
+      "shot": 20,
+      "source_duration": 5.041667,
+      "timeline_duration": 5.083333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_18",
+      "episode": 8,
+      "shot": 30,
+      "source_duration": 5.041667,
+      "timeline_duration": 4.833333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_19",
+      "episode": 8,
+      "shot": 40,
+      "source_duration": 5.041667,
+      "timeline_duration": 5.333333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_20",
+      "episode": 8,
+      "shot": 50,
+      "source_duration": 5.041667,
+      "timeline_duration": 5.083333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_21",
+      "episode": 8,
+      "shot": 60,
+      "source_duration": 5.041667,
+      "timeline_duration": 5.083333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_22",
+      "episode": 9,
+      "shot": 70,
+      "source_duration": 5.041667,
+      "timeline_duration": 4.833333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_23",
+      "episode": 9,
+      "shot": 80,
+      "source_duration": 5.041667,
+      "timeline_duration": 5.083333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_24",
+      "episode": 9,
+      "shot": 90,
+      "source_duration": 5.041667,
+      "timeline_duration": 5.583333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_25",
+      "episode": 9,
+      "shot": 100,
+      "source_duration": 5.041667,
+      "timeline_duration": 4.375,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_26",
+      "episode": 9,
+      "shot": 110,
+      "source_duration": 5.041667,
+      "timeline_duration": 4.833333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_27",
+      "episode": 9,
+      "shot": 120,
+      "source_duration": 5.041667,
+      "timeline_duration": 5.333333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_28",
+      "episode": 9,
+      "shot": 130,
+      "source_duration": 5.041667,
+      "timeline_duration": 5.083333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_29",
+      "episode": 10,
+      "shot": 40,
+      "source_duration": 5.041667,
+      "timeline_duration": 4.333333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_30",
+      "episode": 10,
+      "shot": 50,
+      "source_duration": 5.041667,
+      "timeline_duration": 5.583333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_31",
+      "episode": 10,
+      "shot": 60,
+      "source_duration": 5.041667,
+      "timeline_duration": 5.583333333333333,
+      "fps": 24.0,
+      "resolution": "1920x1080"
+    },
+    {
+      "id": "v2_32",
+      "episode": 10,
+      "shot": 70,
+      "source_duration": 5.041667,
+      "timeline_duration": 5.583333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_33",
+      "episode": 11,
+      "shot": 60,
+      "source_duration": 5.041667,
+      "timeline_duration": 5.583333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_34",
+      "episode": 11,
+      "shot": 70,
+      "source_duration": 5.041667,
+      "timeline_duration": 4.333333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_35",
+      "episode": 11,
+      "shot": 80,
+      "source_duration": 5.041667,
+      "timeline_duration": 4.333333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_36",
+      "episode": 11,
+      "shot": 90,
+      "source_duration": 5.041667,
+      "timeline_duration": 5.583333333333333,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_37",
+      "episode": 12,
+      "shot": 10,
+      "source_duration": 5.041667,
+      "timeline_duration": 7.791666666666667,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    },
+    {
+      "id": "v2_38",
+      "episode": 12,
+      "shot": 20,
+      "source_duration": 5.041667,
+      "timeline_duration": 13.958333333333334,
+      "fps": 24.0,
+      "resolution": "1280x720"
+    }
+  ],
+  "outputs": [
+    "E:\\CrasheyeVideo\\Crasheye_V9字幕_产品报告_v7_adjusted.ass",
+    "E:\\CrasheyeVideo\\Crasheye_V9字幕_产品报告_v7_adjusted.srt"
+  ]
+}
