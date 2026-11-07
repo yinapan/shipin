@@ -1,0 +1,25 @@
+# Install torch/torchaudio separately with scripts/install_cuda_torch.ps1.
+# These are the official CosyVoice2 inference imports, excluding Linux-only
+# training, server and TensorRT packages.
+conformer==0.3.2
+diffusers==0.29.0
+einops
+gdown
+HyperPyYAML==1.2.3
+inflect==7.3.1
+librosa==0.10.2
+lightning==2.2.4
+matplotlib
+modelscope==1.20.0
+numpy==1.26.4
+omegaconf==2.3.0
+onnx==1.16.0
+onnxruntime==1.18.0
+beautifulsoup4
+# Installed separately by scripts/install_cosyvoice.ps1 because its legacy
+# sdist needs setuptools<81 and a non-isolated build on Python 3.12.
+regex
+scipy
+soundfile==0.12.1
+transformers==4.51.3
+wetext==0.0.4

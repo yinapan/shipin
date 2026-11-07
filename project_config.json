@@ -22,6 +22,12 @@
   },
   "voice": {
     "reference_file": "wav/参考配音.wav",
-    "style": "使用本地项目指定的参考音频，不套用其他项目音色参数"
+    "style": "使用本地项目指定的参考音频，不套用其他项目音色参数",
+    "cosyvoice": {
+      "model_dir": "tools/models/CosyVoice2-0.5B",
+      "source_dir": "tools/CosyVoice",
+      "prompt_text": "",
+      "output_file": "work/voice/cosyvoice.wav"
+    }
   }
 }
