@@ -1,0 +1,14 @@
+ffmpeg -hide_banner -y ^
+  -f concat -safe 0 -i work/concat.txt ^
+  -i output/narration_48k.wav ^
+  -vf "scale=3840:2160:flags=lanczos,unsharp=5:5:0.35:5:5:0,ass=work/subtitles.ass" ^
+  -map 0:v -map 1:a ^
+  -c:v h264_nvenc -preset p7 -tune hq -rc vbr -cq 17 -b:v 0 ^
+  -pix_fmt yuv420p -c:a aac -ar 48000 -ac 2 -b:a 192k ^
+  -movflags +faststart output/final_4k.mp4
+
+如果机器没有 NVIDIA 编码器，把视频编码参数替换为：
+
+  -c:v libx264 -preset medium -crf 16
+
+先用短片测试滤镜、字幕字体和音频映射，再进行完整导出。

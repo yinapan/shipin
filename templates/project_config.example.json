@@ -1,0 +1,27 @@
+{
+  "project_name": "项目名称",
+  "root_layout": {
+    "videos": "mp4/",
+    "audio": "wav/",
+    "script": "剧本.md",
+    "work": "work/",
+    "output": "output/"
+  },
+  "ordering": {
+    "outer_folder_pattern": "第{episode}集",
+    "inner_file_pattern": "shot{shot}",
+    "rule": "先按集数自然数字升序，再按集内shot自然数字升序"
+  },
+  "delivery": {
+    "width": 3840,
+    "height": 2160,
+    "fps": "优先保留素材帧率；混合帧率时先确定统一时间轴",
+    "video_codec": "H.264",
+    "audio_sample_rate": 48000,
+    "audio_bitrate": "192k"
+  },
+  "voice": {
+    "reference_file": "wav/参考配音.wav",
+    "style": "依据参考音频重新描述，不把本项目的音色参数硬套到新项目"
+  }
+}
