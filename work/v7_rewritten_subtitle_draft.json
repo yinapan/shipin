@@ -205,11 +205,11 @@
       "end": 65.541671,
       "duration": 5.041667,
       "scene_mapping": "剧本镜头5",
-      "text": "自动归类，也自动找出关联。",
-      "char_count": 11,
-      "expected_speech_seconds": 3.688,
+      "text": "从人工归类，到 AI 助力。",
+      "char_count": 10,
+      "expected_speech_seconds": 3.125,
       "rate_budget_pass": true,
-      "mapping_note": "episode/scene顺序映射"
+      "mapping_note": "视觉复核后修订：证书/成果展示画面，采用剧本结尾旁白意图"
     },
     {
       "index": 14,
@@ -711,5 +711,10 @@
   "mapping_differences": [
     "实际素材共44个，剧本标题镜头1-12；ep13无对应剧本镜头，按镜头12收尾意图映射并标记额外素材。",
     "素材总时长约236.75秒，短于剧本标注总时长346秒，采用实际视频时长作为字幕边界。"
-  ]
+  ],
+  "visual_verification": {
+    "summary": "44个视频关键帧已复核，仅修订此视频字幕；旧字幕、旁白和成片未修改。",
+    "adjusted_video": "a857bb4d31a0fc8bdb14fce0ebb7c12a",
+    "adjustment": "确认、修复、验证，由人完成。 -> 从人工归类，到 AI 助力。"
+  }
 }

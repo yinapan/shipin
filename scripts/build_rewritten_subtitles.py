@@ -75,9 +75,12 @@ def main() -> int:
     if overlap: issues.append(f"overlap={overlap}")
     if out_of_bounds: issues.append(f"out_of_bounds={out_of_bounds}")
     if rate_fail: issues.append(f"rate_fail={rate_fail}")
-    report = {"source_script": draft.get("source_script"), "video_count": len(segments), "mapped_count": len(segments), "cue_count": len(segments), "total_duration": draft.get("total_duration"), "max_rate": MAX_RATE, "issues": list(dict.fromkeys(issues)), "all_pass": not issues and text_equal, "srt_count": len(parsed_srt), "ass_count": len(parsed_ass), "srt_ass_text_equal": text_equal, "overlap": overlap, "out_of_bounds": out_of_bounds, "rate_fail": rate_fail, "segments": segments, "outputs": [str(SRT_OUT), str(ASS_OUT)]}
+    report = {"source_script": draft.get("source_script"), "video_count": len(segments), "mapped_count": len(segments), "cue_count": len(segments), "total_duration": draft.get("total_duration"), "max_rate": MAX_RATE, "issues": list(dict.fromkeys(issues)), "all_pass": not issues and text_equal, "srt_count": len(parsed_srt), "ass_count": len(parsed_ass), "srt_ass_text_equal": text_equal, "overlap": overlap, "out_of_bounds": out_of_bounds, "rate_fail": rate_fail, "visual_verification": draft.get("visual_verification", {}), "segments": segments, "outputs": [str(SRT_OUT), str(ASS_OUT)]}
     REPORT_JSON.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    lines = ["# 字幕重写报告", "", f"- 视频片段：{len(segments)} 个；总时长：{draft.get('total_duration', 0):.3f} 秒。", f"- 字幕单元：{len(segments)} 条；每条限定在对应视频片段内。", f"- 语速上限：{MAX_RATE:.1f} 字/秒；通过：{sum(x['pass'] for x in segments)}/{len(segments)}。", f"- SRT/ASS 文本逐条一致：{'是' if text_equal else '否'}。", "", "## 逐段明细", "", "| # | 视频 | 时长 | 画面变化摘要 | 字幕 | 字数 | 预计朗读 | 起止 | 语速 | 通过 |", "|---:|---|---:|---|---|---:|---:|---|---:|---|"]
+    lines = ["# 字幕重写报告", "", f"- 视频片段：{len(segments)} 个；总时长：{draft.get('total_duration', 0):.3f} 秒。", f"- 字幕单元：{len(segments)} 条；每条限定在对应视频片段内。", f"- 语速上限：{MAX_RATE:.1f} 字/秒；通过：{sum(x['pass'] for x in segments)}/{len(segments)}。", f"- SRT/ASS 文本逐条一致：{'是' if text_equal else '否'}。"]
+    visual_note = draft.get("visual_verification", {}).get("summary")
+    if visual_note: lines.append(f"- 视觉核验：{visual_note}。")
+    lines += ["", "## 逐段明细", "", "| # | 视频 | 时长 | 画面变化摘要 | 字幕 | 字数 | 预计朗读 | 起止 | 语速 | 通过 |", "|---:|---|---:|---|---|---:|---:|---|---:|---|"]
     for x in segments:
         visual = ", ".join(f"{v:.1f}" for v in x.get("visual_sample_yavg", []))
         lines.append(f"| {x['index']} | `{x['id']}` | {x.get('video_duration', x['duration']):.3f}s | YAVG {visual} | {x['text']} | {x['spoken_char_count']} | {x['expected_speech_seconds']:.3f}s | {x['cue_start']:.3f}–{x['cue_end']:.3f} | {x['actual_rate']:.2f} | {'通过' if x['pass'] else '失败'} |")

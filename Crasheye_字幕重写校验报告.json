@@ -13,6 +13,11 @@
   "overlap": 0,
   "out_of_bounds": 0,
   "rate_fail": 0,
+  "visual_verification": {
+    "summary": "44个视频关键帧已复核，仅修订此视频字幕；旧字幕、旁白和成片未修改。",
+    "adjusted_video": "a857bb4d31a0fc8bdb14fce0ebb7c12a",
+    "adjustment": "确认、修复、验证，由人完成。 -> 从人工归类，到 AI 助力。"
+  },
   "segments": [
     {
       "index": 1,
@@ -420,12 +425,12 @@
       "end": 65.541671,
       "duration": 5.041667,
       "scene_mapping": "剧本镜头5",
-      "text": "自动归类，也自动找出关联。",
-      "char_count": 11,
-      "expected_speech_seconds": 3.688,
+      "text": "从人工归类，到 AI 助力。",
+      "char_count": 10,
+      "expected_speech_seconds": 3.125,
       "rate_budget_pass": true,
-      "mapping_note": "episode/scene顺序映射",
-      "spoken_char_count": 11,
+      "mapping_note": "视觉复核后修订：证书/成果展示画面，采用剧本结尾旁白意图",
+      "spoken_char_count": 10,
       "video_duration": 5.041667,
       "resolution": "1280x720",
       "fps": "24/1",
@@ -439,8 +444,8 @@
       ],
       "visual_change_range": 94.586,
       "cue_start": 60.500004,
-      "cue_end": 64.18800399999999,
-      "actual_rate": 2.982646420824295,
+      "cue_end": 63.625004,
+      "actual_rate": 3.2,
       "pass": true
     },
     {
