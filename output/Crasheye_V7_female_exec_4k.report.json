@@ -1,0 +1,57 @@
+{
+  "output": "E:\\CrasheyeVideo\\output\\Crasheye_V7_female_exec_4k.mp4",
+  "decode_exit": 0,
+  "video": {
+    "codec_name": "h264",
+    "width": 3840,
+    "height": 2160,
+    "pix_fmt": "yuv420p",
+    "r_frame_rate": "24/1",
+    "duration": "202.000000",
+    "nb_frames": "4848"
+  },
+  "audio": {
+    "codec_name": "aac",
+    "sample_rate": "48000",
+    "channels": 2,
+    "channel_layout": "stereo",
+    "bit_rate": "192139",
+    "duration": "202.000000"
+  },
+  "timeline": {
+    "actual_video_count": 39,
+    "timeline_segment_count": 38,
+    "unused_count": 1,
+    "unused": [
+      {
+        "path": "mp4\\Crasheye动画故事剧本-v5_第8集_应用的素材\\ep02_sc08_shot0010_e1c2f4028ffde017374c2e62e4c9aa2e.mp4",
+        "episode": 8,
+        "shot": 10,
+        "sha256": "49134c69a35ee25acfe51dc491d3e95f94308003c2751778b80abe87e4b12cb7",
+        "duration": 5.041667,
+        "width": 1280,
+        "height": 720,
+        "fps": 24.0,
+        "has_audio": false
+      }
+    ],
+    "warnings": [
+      "v2_02: SHA mismatch; using episode=1, shot=30 file ffd16c6d8f9224f39030dec7bab1e7d379151d904af22495a990705291cb1535"
+    ],
+    "duration": 202.00000000000006
+  },
+  "subtitles": {
+    "dialogue_count": 38,
+    "first": "Dialogue: 0,00:00:00.20,00:00:04.84,Default,,0,0,0,,你有没有遇到过，正在使用的软件突然闪退？",
+    "last": "Dialogue: 0,00:03:08.24,00:03:21.74,Default,,0,0,0,,系统已实现技术落地，为小米科技、西山居、WPS 等多家互联网企业提供质量监控服务，累计覆盖超过千万用户，服务次数超过 10 亿次。"
+  },
+  "checks": {
+    "duration_exact_202s": true,
+    "dimensions_4k": true,
+    "fps_24": true,
+    "yuv420p": true,
+    "aac_48k_192k": true,
+    "full_decode_ok": true,
+    "subtitle_count_38": true
+  }
+}
