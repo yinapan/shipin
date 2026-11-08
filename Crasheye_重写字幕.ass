@@ -1,0 +1,56 @@
+﻿[Script Info]
+ScriptType: v4.00+
+PlayResX: 3840
+PlayResY: 2160
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Microsoft YaHei,112,&H00FFFFFF,&H00FFFFFF,&H00101010,&H80101010,0,0,0,0,100,100,0,0,1,5,2,2,120,120,155,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,00:00:00.00,00:00:03.68,Default,,0,0,0,,你有没有遇到过这种情况——
+Dialogue: 0,00:00:05.04,00:00:08.73,Default,,0,0,0,,正在用的软件，突然闪退了。
+Dialogue: 0,00:00:10.08,00:00:13.77,Default,,0,0,0,,游戏、办公、手机，都可能闪退。
+Dialogue: 0,00:00:15.12,00:00:17.87,Default,,0,0,0,,大量用户同时在崩。
+Dialogue: 0,00:00:20.16,00:00:24.16,Default,,0,0,0,,差评发完你走了，另一边更崩。
+Dialogue: 0,00:00:25.20,00:00:29.83,Default,,0,0,0,,不是没有数据，宕机、日志、版本都有。
+Dialogue: 0,00:00:30.25,00:00:34.56,Default,,0,0,0,,线索分散，还得靠专家逐条比对。
+Dialogue: 0,00:00:35.29,00:00:39.29,Default,,0,0,0,,化验单一堆，却全靠人工关联。
+Dialogue: 0,00:00:40.33,00:00:44.33,Default,,0,0,0,,化验单一堆，却全靠人工关联。
+Dialogue: 0,00:00:45.37,00:00:48.43,Default,,0,0,0,,有没有更高效的方式——
+Dialogue: 0,00:00:50.41,00:00:53.47,Default,,0,0,0,,有人接下了这个挑战。
+Dialogue: 0,00:00:55.45,00:00:59.77,Default,,0,0,0,,六人团队，用AI补上关键一环。
+Dialogue: 0,00:01:00.50,00:01:04.18,Default,,0,0,0,,自动归类，也自动找出关联。
+Dialogue: 0,00:01:05.54,00:01:09.85,Default,,0,0,0,,如果给排查流程装上AI引擎？
+Dialogue: 0,00:01:10.58,00:01:13.64,Default,,0,0,0,,小精灵从屏幕中醒来。
+Dialogue: 0,00:01:15.62,00:01:19.31,Default,,0,0,0,,它随时待命，梳理设备异常。
+Dialogue: 0,00:01:20.66,00:01:24.66,Default,,0,0,0,,大量设备同时发来崩溃报告。
+Dialogue: 0,00:01:25.70,00:01:29.08,Default,,0,0,0,,AI给出最可疑的方向。
+Dialogue: 0,00:01:30.75,00:01:35.06,Default,,0,0,0,,工程师核实位置，确认候选原因。
+Dialogue: 0,00:01:35.79,00:01:38.85,Default,,0,0,0,,目标不只是更快定位。
+Dialogue: 0,00:01:40.83,00:01:45.77,Default,,0,0,0,,让游戏、办公、手机、PC都有分析搭档。
+Dialogue: 0,00:01:45.87,00:01:50.18,Default,,0,0,0,,让每次排查都更及时、更有方向。
+Dialogue: 0,00:01:50.91,00:01:55.85,Default,,0,0,0,,把重复检索交给工具，把判断留给人。
+Dialogue: 0,00:01:55.95,00:02:00.89,Default,,0,0,0,,把重复检索交给工具，把判断留给人。
+Dialogue: 0,00:02:01.00,00:02:05.93,Default,,0,0,0,,把重复检索交给工具，把判断留给人。
+Dialogue: 0,00:02:06.04,00:02:10.66,Default,,0,0,0,,这套能力已经进入真实运行场景。
+Dialogue: 0,00:02:11.08,00:02:14.77,Default,,0,0,0,,平台使用项目超过五百个。
+Dialogue: 0,00:02:16.12,00:02:19.18,Default,,0,0,0,,平台使用接近六亿次。
+Dialogue: 0,00:02:21.16,00:02:24.54,Default,,0,0,0,,宕机分析接近三百万次。
+Dialogue: 0,00:02:26.20,00:02:29.27,Default,,0,0,0,,先看趋势和版本分布。
+Dialogue: 0,00:02:31.25,00:02:35.25,Default,,0,0,0,,再由AI联动源码，给出线索。
+Dialogue: 0,00:02:36.29,00:02:40.91,Default,,0,0,0,,最后回看修复版本，验证问题消失。
+Dialogue: 0,00:02:41.33,00:02:45.33,Default,,0,0,0,,为什么值得持续投入稳定性？
+Dialogue: 0,00:02:46.37,00:02:49.12,Default,,0,0,0,,业务越大，用户越多。
+Dialogue: 0,00:02:51.41,00:02:55.41,Default,,0,0,0,,每一次中断，都带来更大压力。
+Dialogue: 0,00:02:56.45,00:03:00.77,Default,,0,0,0,,复用工具，让项目不用重复建设。
+Dialogue: 0,00:03:01.50,00:03:06.43,Default,,0,0,0,,Crasheye 2.0，AI协同人。
+Dialogue: 0,00:03:06.54,00:03:09.91,Default,,0,0,0,,让排查更高效，也更可控。
+Dialogue: 0,00:03:11.58,00:03:14.95,Default,,0,0,0,,确认、修复、验证，由人完成。
+Dialogue: 0,00:03:16.62,00:03:20.62,Default,,0,0,0,,让每次问题都更快找到方向。
+Dialogue: 0,00:03:21.66,00:03:25.66,Default,,0,0,0,,AI与人协同，让排查更高效。
+Dialogue: 0,00:03:31.70,00:03:35.08,Default,,0,0,0,,先发现问题，再给出方向。
+Dialogue: 0,00:03:41.75,00:03:45.12,Default,,0,0,0,,确认、修复、验证，由人完成。
+Dialogue: 0,00:03:51.79,00:03:55.16,Default,,0,0,0,,Crasheye 2.0。
