@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智能崩溃分析平台 2.0 — CrashEye 2.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep: #040B14;
+  --bg-card: #0A1929;
+  --bg-card-light: #0F2240;
+  --bg-gray: #1A2332;
+  --bg-blue: #0A2A4A;
+  --accent: #00E5CC;
+  --accent-dim: #00B8A3;
+  --accent-glow: rgba(0, 229, 204, 0.15);
+  --orange: #FF6B35;
+  --red: #FF4757;
+  --green: #2ED573;
+  --white: #F0F4F8;
+  --gray: #8899AA;
+  --gray-light: #B0BEC5;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Noto Sans SC', sans-serif;
+  background: var(--bg-deep);
+  color: var(--white);
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+.deck {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.slide {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  padding: 60px 80px;
+  background: var(--bg-deep);
+  overflow: hidden;
+}
+
+.slide.active { display: flex; flex-direction: column; }
+
+/* ========== SLIDE 1: COVER ========== */
+.s1 {
+  background: linear-gradient(135deg, #040B14 0%, #0A1929 40%, #0F2240 100%);
+  flex-direction: row !important;
+  align-items: center;
+  gap: 60px;
+}
+
+.s1::before {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.s1-left { flex: 6; z-index: 1; }
+
+.s1-title {
+  font-size: 52px;
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, var(--white) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: fadeSlideUp 0.8s ease-out;
+}
+
+.s1-subtitle {
+  font-size: 24px;
+  color: var(--gray);
+  font-weight: 300;
+  margin-bottom: 32px;
+  animation: fadeSlideUp 0.8s ease-out 0.15s both;
+}
+
+.s1-tags {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 48px;
+  animation: fadeSlideUp 0.8s ease-out 0.3s both;
+}
+
+.s1-tag {
+  background: var(--accent);
+  color: var(--bg-deep);
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.s1-info {
+  color: var(--gray-light);
+  font-size: 16px;
+  line-height: 2;
+  animation: fadeSlideUp 0.8s ease-out 0.45s both;
+}
+
+.s1-info strong { color: var(--white); font-weight: 500; }
+
+.s1-right {
+  flex: 4;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeSlideUp 0.8s ease-out 0.3s both;
+}
+
+.s1-graphic {
+  width: 340px;
+  height: 340px;
+  border-radius: 24px;
+  background: linear-gradient(145deg, var(--bg-card) 0%, var(--bg-card-light) 100%);
+  border: 1px solid rgba(0, 229, 204, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px var(--accent-glow);
+}
+
+.s1-graphic-icon {
+  font-size: 64px;
+}
+
+.s1-graphic-flow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--gray-light);
+}
+
+.s1-graphic-flow .arrow { color: var(--accent); font-size: 18px; }
+.s1-graphic-flow .node {
+  background: var(--bg-gray);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+/* ========== SLIDE 2: VIDEO ========== */
+.s2 {
+  background: #000;
+  align-items: center;
+  justify-content: center;
+}
+
+.s2-player {
+  width: 85%;
+  aspect-ratio: 16/9;
+  background: var(--bg-card);
+  border-radius: 16px;
+  border: 1px solid rgba(0,229,204,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.s2-player .play-icon {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  color: var(--bg-deep);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.s2-player .play-icon:hover { transform: scale(1.1); }
+.s2-player .duration { color: var(--gray); font-size: 18px; }
+
+/* ========== SLIDE 3: TRANSITION ========== */
+.s3 {
+  background: linear-gradient(180deg, var(--bg-deep) 0%, #0A1929 100%);
+  align-items: center;
+  gap: 48px;
+}
+
+.s3-headline {
+  font-size: 44px;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 20px;
+  animation: fadeSlideUp 0.6s ease-out;
+}
+
+.s3-headline em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.s3-compare {
+  display: flex;
+  gap: 32px;
+  width: 100%;
+  max-width: 1100px;
+  animation: fadeSlideUp 0.6s ease-out 0.2s both;
+}
+
+.s3-card {
+  flex: 1;
+  border-radius: 16px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.s3-card.old {
+  background: var(--bg-gray);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.s3-card.new {
+  background: var(--bg-blue);
+  border: 1px solid rgba(0,229,204,0.2);
+  box-shadow: 0 0 30px var(--accent-glow);
+}
+
+.s3-card-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid rgba(255,255,255,0.1);
+}
+
+.s3-card.new .s3-card-title { border-bottom-color: var(--accent); color: var(--accent); }
+
+.s3-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  font-size: 15px;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+.s3-row:last-child { border-bottom: none; }
+
+.s3-row .label { color: var(--gray-light); }
+.s3-row .value { font-weight: 500; }
+.s3-row .check { color: var(--green); }
+.s3-row .cross { color: var(--red); }
+.s3-row .highlight { color: var(--accent); font-weight: 700; }
+
+/* ========== SLIDE 4: LOOP ========== */
+.s4 {
+  background: linear-gradient(135deg, var(--bg-deep) 0%, #0A1929 100%);
+  gap: 32px;
+}
+
+.s4-title {
+  font-size: 32px;
+  font-weight: 700;
+  animation: fadeSlideUp 0.6s ease-out;
+}
+
+.s4-flow {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  flex: 1;
+  animation: fadeSlideUp 0.6s ease-out 0.2s both;
+}
+
+.s4-col {
+  flex: 1;
+  padding: 28px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+}
+
+.s4-col.data { background: var(--bg-gray); }
+.s4-col.ai { background: linear-gradient(180deg, #0A2A4A, #0F3460); border: 1px solid rgba(0,229,204,0.15); }
+.s4-col.eng { background: var(--bg-blue); }
+
+.s4-col-icon { font-size: 28px; }
+.s4-col-title { font-size: 18px; font-weight: 700; }
+.s4-col.ai .s4-col-title { color: var(--accent); }
+
+.s4-col-item {
+  font-size: 14px;
+  color: var(--gray-light);
+  padding: 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.s4-col-item .num {
+  background: var(--accent);
+  color: var(--bg-deep);
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.s4-arrow {
+  display: flex;
+  align-items: center;
+  font-size: 28px;
+  color: var(--accent);
+  padding: 0 8px;
+}
+
+.s4-loop {
+  background: var(--bg-card);
+  border: 1px dashed var(--accent-dim);
+  border-radius: 12px;
+  padding: 14px 24px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--accent);
+  animation: fadeSlideUp 0.6s ease-out 0.4s both;
+}
+
+.s4-loop span { font-size: 18px; margin-right: 8px; }
+
+/* ========== SLIDE 5: CASE ========== */
+.s5 {
+  background: linear-gradient(135deg, var(--bg-deep) 0%, #0A1929 100%);
+  gap: 24px;
+}
+
+.s5-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  animation: fadeSlideUp 0.6s ease-out;
+}
+
+.s5-header h2 { font-size: 28px; font-weight: 700; }
+.s5-header .game-tag {
+  background: var(--bg-card-light);
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--gray-light);
+}
+
+.s5-body {
+  display: flex;
+  gap: 24px;
+  flex: 1;
+  animation: fadeSlideUp 0.6s ease-out 0.2s both;
+}
+
+.s5-panel {
+  flex: 1;
+  border-radius: 16px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.s5-panel.left {
+  background: var(--bg-gray);
+  border-top: 3px solid var(--red);
+}
+
+.s5-panel.right {
+  background: var(--bg-blue);
+  border-top: 3px solid var(--green);
+}
+
+.s5-panel-title {
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.s5-panel.left .s5-panel-title { color: var(--red); }
+.s5-panel.right .s5-panel-title { color: var(--green); }
+
+.s5-section { margin-bottom: 8px; }
+.s5-section-label {
+  font-size: 12px;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.s5-code {
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  background: rgba(0,0,0,0.3);
+  padding: 12px 16px;
+  border-radius: 8px;
+  color: var(--gray-light);
+  line-height: 1.8;
+}
+
+.s5-code .err { color: var(--red); }
+.s5-code .ok { color: var(--green); }
+.s5-code .hl { color: var(--accent); }
+.s5-code .warn { color: var(--orange); }
+
+.s5-chain {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.s5-chain-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--gray-light);
+}
+
+.s5-chain-arrow { color: var(--orange); font-size: 16px; text-align: center; padding-left: 6px; }
+
+.s5-mid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  flex-shrink: 0;
+}
+
+.s5-mid-arrow {
+  font-size: 36px;
+  color: var(--accent);
+  text-shadow: 0 0 20px var(--accent-glow);
+}
+
+.s5-footer {
+  display: flex;
+  gap: 16px;
+  animation: fadeSlideUp 0.6s ease-out 0.4s both;
+}
+
+.s5-step {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid rgba(0,229,204,0.1);
+  border-radius: 12px;
+  padding: 14px 20px;
+  text-align: center;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.s5-step .check { color: var(--green); font-size: 18px; }
+
+/* ========== SLIDE 6: PRINCIPLE ========== */
+.s6 {
+  background: linear-gradient(135deg, var(--bg-deep) 0%, #0A1929 100%);
+  gap: 36px;
+  align-items: center;
+}
+
+.s6-title {
+  font-size: 36px;
+  font-weight: 700;
+  text-align: center;
+  animation: fadeSlideUp 0.6s ease-out;
+}
+
+.s6-flow-wrap {
+  width: 100%;
+  max-width: 1000px;
+  animation: fadeSlideUp 0.6s ease-out 0.2s both;
+}
+
+.s6-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 20px;
+}
+
+.s6-node {
+  padding: 14px 22px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.s6-node.ai { background: var(--bg-blue); border: 1px solid rgba(0,229,204,0.2); color: var(--accent); }
+.s6-node.eng { background: var(--bg-gray); }
+.s6-flow-arrow { font-size: 22px; color: var(--accent); padding: 0 6px; }
+
+.s6-divider {
+  width: 4px;
+  height: 60px;
+  background: var(--red);
+  margin: 0 6px;
+  border-radius: 2px;
+  position: relative;
+}
+
+.s6-divider-label {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 13px;
+  color: var(--red);
+  font-weight: 700;
+  background: var(--bg-deep);
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--red);
+}
+
+.s6-principles {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  max-width: 1000px;
+  animation: fadeSlideUp 0.6s ease-out 0.4s both;
+}
+
+.s6-principle {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 14px;
+  padding: 24px;
+  text-align: center;
+}
+
+.s6-principle-icon { font-size: 32px; margin-bottom: 12px; }
+.s6-principle-text { font-size: 14px; color: var(--gray-light); line-height: 1.6; }
+
+/* ========== SLIDE 7: SCALE ========== */
+.s7 {
+  background: linear-gradient(135deg, var(--bg-deep) 0%, #0A1929 100%);
+  gap: 32px;
+}
+
+.s7-title {
+  font-size: 32px;
+  font-weight: 700;
+  animation: fadeSlideUp 0.6s ease-out;
+}
+
+.s7-body {
+  display: flex;
+  gap: 32px;
+  flex: 1;
+  animation: fadeSlideUp 0.6s ease-out 0.2s both;
+}
+
+.s7-left { flex: 55; display: flex; flex-direction: column; gap: 20px; }
+.s7-right { flex: 45; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+.s7-metric {
+  background: var(--bg-card);
+  border: 1px solid rgba(0,229,204,0.1);
+  border-radius: 14px;
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.s7-metric-icon { font-size: 32px; }
+
+.s7-metric-num {
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--accent);
+}
+
+.s7-metric-label { font-size: 14px; color: var(--gray-light); }
+
+.s7-eco {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 1px dashed rgba(0,229,204,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.s7-eco-center {
+  background: var(--accent);
+  color: var(--bg-deep);
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  z-index: 1;
+}
+
+.s7-eco-node {
+  position: absolute;
+  background: var(--bg-card);
+  border: 1px solid rgba(0,229,204,0.15);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  color: var(--gray-light);
+  white-space: nowrap;
+}
+
+.s7-eco-node:nth-child(2) { top: 10px; left: 50%; transform: translateX(-50%); }
+.s7-eco-node:nth-child(3) { top: 30%; right: -10px; }
+.s7-eco-node:nth-child(4) { bottom: 30%; right: -10px; }
+.s7-eco-node:nth-child(5) { bottom: 10px; left: 50%; transform: translateX(-50%); }
+.s7-eco-node:nth-child(6) { bottom: 30%; left: -10px; }
+.s7-eco-node:nth-child(7) { top: 30%; left: -10px; }
+
+.s7-actions {
+  display: flex;
+  gap: 16px;
+  animation: fadeSlideUp 0.6s ease-out 0.4s both;
+}
+
+.s7-action {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid rgba(0,229,204,0.08);
+  border-radius: 12px;
+  padding: 18px;
+  text-align: center;
+}
+
+.s7-action-icon { font-size: 24px; margin-bottom: 8px; }
+.s7-action-text { font-size: 13px; color: var(--gray-light); line-height: 1.5; }
+
+/* ========== SLIDE 8: TEAM ========== */
+.s8 {
+  background: linear-gradient(135deg, var(--bg-deep) 0%, #0A1929 100%);
+  flex-direction: row !important;
+  gap: 48px;
+  align-items: center;
+}
+
+.s8-left { flex: 45; }
+.s8-right { flex: 55; display: flex; align-items: center; justify-content: center; }
+
+.s8-team-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 32px;
+  animation: fadeSlideUp 0.6s ease-out;
+}
+
+.s8-team-title span { color: var(--accent); }
+
+.s8-org {
+  animation: fadeSlideUp 0.6s ease-out 0.2s both;
+}
+
+.s8-leader {
+  background: var(--bg-card);
+  border: 1px solid rgba(0,229,204,0.15);
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.s8-leader-name { font-size: 20px; font-weight: 700; color: var(--accent); }
+.s8-leader-role { font-size: 13px; color: var(--gray-light); margin-top: 4px; }
+
+.s8-members {
+  display: flex;
+  gap: 12px;
+}
+
+.s8-member {
+  flex: 1;
+  background: var(--bg-gray);
+  border-radius: 10px;
+  padding: 14px;
+  text-align: center;
+}
+
+.s8-member-name { font-size: 14px; font-weight: 500; }
+.s8-member-role { font-size: 11px; color: var(--gray); margin-top: 4px; }
+
+.s8-pyramid {
+  width: 100%;
+  max-width: 440px;
+  animation: fadeSlideUp 0.6s ease-out 0.3s both;
+}
+
+.s8-pyramid-layer {
+  padding: 20px;
+  text-align: center;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.s8-pyramid-layer.top {
+  background: linear-gradient(135deg, #0A2A4A, #0F3460);
+  border: 1px solid rgba(0,229,204,0.2);
+}
+
+.s8-pyramid-layer.mid {
+  background: var(--bg-card-light);
+  border: 1px solid rgba(0,229,204,0.1);
+  margin: 0 20px 12px;
+}
+
+.s8-pyramid-layer.bot {
+  background: var(--bg-card);
+  margin: 0 40px 12px;
+}
+
+.s8-pyramid-icon { font-size: 24px; margin-bottom: 6px; }
+.s8-pyramid-label { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.s8-pyramid-layer.top .s8-pyramid-label { color: var(--accent); }
+.s8-pyramid-desc { font-size: 12px; color: var(--gray-light); }
+
+/* ========== SLIDE 9: CLOSING ========== */
+.s9 {
+  background: linear-gradient(180deg, var(--bg-deep) 0%, #0A1929 50%, var(--bg-deep) 100%);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0;
+}
+
+.s9-line1 {
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.6;
+  margin-bottom: 40px;
+  animation: fadeSlideUp 0.8s ease-out;
+}
+
+.s9-divider {
+  width: 200px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  margin-bottom: 40px;
+  animation: fadeSlideUp 0.8s ease-out 0.3s both;
+}
+
+.s9-line2 {
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--accent);
+  line-height: 1.8;
+  margin-bottom: 60px;
+  animation: fadeSlideUp 0.8s ease-out 0.5s both;
+}
+
+.s9-footer {
+  font-size: 16px;
+  color: var(--gray);
+  animation: fadeSlideUp 0.8s ease-out 0.7s both;
+}
+
+/* ========== NAV ========== */
+.nav {
+  position: fixed;
+  bottom: 24px;
+  right: 32px;
+  display: flex;
+  gap: 8px;
+  z-index: 100;
+}
+
+.nav-btn {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,229,204,0.2);
+  background: rgba(10,25,41,0.9);
+  color: var(--accent);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  backdrop-filter: blur(10px);
+}
+
+.nav-btn:hover { background: var(--accent); color: var(--bg-deep); }
+
+.page-indicator {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 100;
+}
+
+.page-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--gray);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.page-dot.active {
+  background: var(--accent);
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== SPEAKER NOTES (press N) ========== */
+.notes-overlay {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.92);
+  color: var(--white);
+  padding: 20px 40px;
+  font-size: 18px;
+  line-height: 1.8;
+  z-index: 200;
+  max-height: 40vh;
+  overflow-y: auto;
+  backdrop-filter: blur(20px);
+  border-top: 2px solid var(--accent);
+}
+
+.notes-overlay.show { display: block; }
+.notes-overlay .notes-title { color: var(--accent); font-size: 14px; margin-bottom: 8px; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- SLIDE 1: COVER -->
+  <div class="slide s1 active" data-notes="各位评委好，我是李爱华劳模创新工作室的成员潘亚楠，我们的参赛项目是智能崩溃分析平台 2.0。\n\n软件崩溃就像一个人突然生病——症状看得见，但病因藏在深处。怎么更快找到病因？先请各位看一段短片。">
+    <div class="s1-left">
+      <div class="s1-title">智能崩溃分析平台 2.0</div>
+      <div class="s1-subtitle">CrashEye 2.0</div>
+      <div class="s1-tags">
+        <span class="s1-tag">智能归类</span>
+        <span class="s1-tag">自动关联</span>
+        <span class="s1-tag">根因定位</span>
+      </div>
+      <div class="s1-info">
+        <strong>珠海金山数字网络科技有限公司</strong><br>
+        李爱华劳模创新工作室
+      </div>
+    </div>
+    <div class="s1-right">
+      <div class="s1-graphic">
+        <div class="s1-graphic-icon">🛡️</div>
+        <div class="s1-graphic-flow">
+          <span class="node">📊 数据</span>
+          <span class="arrow">→</span>
+          <span class="node">🤖 AI</span>
+          <span class="arrow">→</span>
+          <span class="node">👨‍💻 工程师</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: VIDEO -->
+  <div class="slide s2" data-notes="（播放视频，不讲话）">
+    <div class="s2-player">
+      <div class="play-icon">▶</div>
+      <div class="duration">📹 播放视频 · 3 分 22 秒</div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: TRANSITION -->
+  <div class="slide s3" data-notes="视频展示了整体流程。打个比方：1.0 相当于医院能做化验了——各种检查都有，但靠医生自己归类关联。2.0 就是给医生配了个 AI 助手，帮他把化验单拼好，把最可疑的病因标出来。">
+    <div class="s3-headline">"从<em>看见</em>故障，到<em>读懂</em>故障"</div>
+    <div class="s3-compare">
+      <div class="s3-card old">
+        <div class="s3-card-title">1.0 · 看得见</div>
+        <div class="s3-row"><span class="label">采集</span><span class="value"><span class="check">✅</span> 崩溃信息采集</span></div>
+        <div class="s3-row"><span class="label">预警</span><span class="value"><span class="check">✅</span> 闪退率监控</span></div>
+        <div class="s3-row"><span class="label">基础定位</span><span class="value"><span class="check">✅</span> 堆栈排行</span></div>
+        <div class="s3-row"><span class="label"><strong>归类</strong></span><span class="value"><span class="cross">❌</span> 人工逐条</span></div>
+        <div class="s3-row"><span class="label"><strong>关联</strong></span><span class="value"><span class="cross">❌</span> 人工交叉比对</span></div>
+        <div class="s3-row"><span class="label"><strong>根因</strong></span><span class="value"><span class="cross">❌</span> 依赖专家经验</span></div>
+      </div>
+      <div class="s3-card new">
+        <div class="s3-card-title">2.0 · 读得懂</div>
+        <div class="s3-row"><span class="label">采集</span><span class="value"><span class="check">✅</span> 沿用</span></div>
+        <div class="s3-row"><span class="label">预警</span><span class="value"><span class="check">✅</span> 沿用</span></div>
+        <div class="s3-row"><span class="label">基础定位</span><span class="value"><span class="check">✅</span> 沿用</span></div>
+        <div class="s3-row"><span class="label"><strong>归类</strong></span><span class="value highlight"><span class="check">✅</span> AI 智能归类</span></div>
+        <div class="s3-row"><span class="label"><strong>关联</strong></span><span class="value highlight"><span class="check">✅</span> AI 自动关联</span></div>
+        <div class="s3-row"><span class="label"><strong>根因</strong></span><span class="value highlight"><span class="check">✅</span> AI 根因定位</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: LOOP -->
+  <div class="slide s4" data-notes="这张图是'医院'的完整运转流程。\n\n左边是各种化验单——崩溃发生时系统自动记录下来的各种信息，汇到一起。必要时还会调出病人的既往病历——也就是这个病人之前的就诊记录。\n\n中间是 AI 助手——它帮医生做三件事：先把症状相似的病人归类，再把不同化验单的结果关联起来，最后推理出最可疑的病因，告诉医生'建议先查这里'。\n\n但 AI 助手不开药。右边才是医生——工程师拿着 AI 给的线索，自己判断、自己修改、自己验证、自己发布。\n\n下面这条回路也很关键：每次治好的病例都存下来。下次来了类似的病人，AI 助手就多了一份可参考的历史病历。">
+    <div class="s4-title">数据、AI 与工程闭环</div>
+    <div class="s4-flow">
+      <div class="s4-col data">
+        <div class="s4-col-icon">📊</div>
+        <div class="s4-col-title">数据层</div>
+        <div class="s4-col-item">· 堆栈</div>
+        <div class="s4-col-item">· 日志</div>
+        <div class="s4-col-item">· 版本</div>
+        <div class="s4-col-item">· 设备</div>
+        <div class="s4-col-item">· 历史记录</div>
+        <div class="s4-col-item">· 受控源码</div>
+      </div>
+      <div class="s4-arrow">→</div>
+      <div class="s4-col ai">
+        <div class="s4-col-icon">🤖</div>
+        <div class="s4-col-title">AI 分析层</div>
+        <div class="s4-col-item"><span class="num">1</span> 聚合同类问题</div>
+        <div class="s4-col-item"><span class="num">2</span> 关联运行现场 + 代码上下文</div>
+        <div class="s4-col-item"><span class="num">3</span> 推理根因线索</div>
+        <div class="s4-col-item"><span class="num">4</span> 给出位置 / 思路 / 验证要点</div>
+      </div>
+      <div class="s4-arrow">→</div>
+      <div class="s4-col eng">
+        <div class="s4-col-icon">👨‍💻</div>
+        <div class="s4-col-title">工程闭环</div>
+        <div class="s4-col-item">· 核验根因</div>
+        <div class="s4-col-item">· 修改代码</div>
+        <div class="s4-col-item">· 提交测试</div>
+        <div class="s4-col-item">· 发布回归</div>
+      </div>
+    </div>
+    <div class="s4-loop"><span>🔄</span> 处理过程沉淀为案例，下次分析用上确认过的历史依据</div>
+  </div>
+
+  <!-- SLIDE 5: CASE STUDY -->
+  <div class="slide s5" data-notes="用一个真实病例来说明 AI 助手到底帮了什么。\n\n这是《剑网3》的一次崩溃。左边是病人的化验单——好几项指标同时异常，病人在活动中突然倒下了。◆ 化验结果能告诉医生'病人怎么倒的'，但还不知道'为什么会倒'。\n\n以前医生要自己逐项排查，翻病历、对检查记录，一步步拼出因果关系，可能花好几天。◆\n\n现在 AI 助手把所有化验单和病历放在一起，发现这几项异常之间有因果关系——第一项导致了第二项，第二项导致了第三项，最终导致病人倒下。◆ 一条完整的因果链，从散落的化验指标里被串了出来。\n\nAI 助手把这条链写成诊断报告，放在医生桌上：'建议查这里，发病原因可能是这个。'◆ 医生核实后确认，对症治疗，复查通过。这就是从'一堆散的化验单'到'一份完整诊断报告'的变化。\n\nPPT 上展示的就是这条因果链的技术细节——评委感兴趣可以细看。">
+    <div class="s5-header">
+      <h2>真实案例 · AI 将零散异常转化为修复方案</h2>
+      <span class="game-tag">🎮 《剑网3》</span>
+    </div>
+    <div class="s5-body">
+      <div class="s5-panel left">
+        <div class="s5-panel-title">⚠️ 原始现场</div>
+        <div class="s5-section">
+          <div class="s5-section-label">异常类型</div>
+          <div class="s5-code">
+            <span class="err">写入访问冲突（0xC0000005）</span><br>
+            写入目标：<span class="err">0x00000000</span>（空指针）
+          </div>
+        </div>
+        <div class="s5-section">
+          <div class="s5-section-label">运行日志</div>
+          <div class="s5-code">
+            空闲内存：<span class="warn">459 MB</span><br>
+            页面文件可用率：<span class="err">0.1%</span>
+          </div>
+        </div>
+        <div style="font-size:12px;color:var(--gray);margin-top:8px;">💬 告诉研发"发生了什么"<br>　 还需查源码判断"为什么发生"</div>
+      </div>
+      <div class="s5-mid"><div class="s5-mid-arrow">⟹</div></div>
+      <div class="s5-panel right">
+        <div class="s5-panel-title">🔍 AI 分析结果</div>
+        <div class="s5-section">
+          <div class="s5-section-label">关联源码</div>
+          <div class="s5-code">
+            纹理处理模块 → <span class="hl">texture_init.cpp : 102</span>
+          </div>
+        </div>
+        <div class="s5-section">
+          <div class="s5-section-label">原因链</div>
+          <div class="s5-chain">
+            <div class="s5-chain-step"><span class="err">●</span> 内存分配返回空指针</div>
+            <div class="s5-chain-arrow">↓</div>
+            <div class="s5-chain-step"><span class="warn">●</span> 未执行判空检查</div>
+            <div class="s5-chain-arrow">↓</div>
+            <div class="s5-chain-step"><span class="warn">●</span> 内存初始化继续执行</div>
+            <div class="s5-chain-arrow">↓</div>
+            <div class="s5-chain-step"><span class="err">●</span> 向 0x00000000 写入 → 触发访问冲突</div>
+          </div>
+        </div>
+        <div class="s5-section">
+          <div class="s5-section-label">AI 建议</div>
+          <div class="s5-code"><span class="ok">💡 补充判空 + 分配失败处理逻辑</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="s5-footer">
+      <div class="s5-step"><span class="check">✅</span> 工程师核验确认</div>
+      <div class="s5-step"><span class="check">✅</span> 修改提交</div>
+      <div class="s5-step"><span class="check">✅</span> 回归验证通过</div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: PRINCIPLE -->
+  <div class="slide s6" data-notes="视频里说了一句关键的话——'根因不等于结论，仍需工程师判断'。这就是我们的底线：AI 助手负责看化验单、给诊断建议，但开药的决定一定是医生来做。病人的病历在医院内部安全管理，证据不够就继续补充检查，不让 AI 助手替医生拍板。责任交接清楚，AI 才能真正进入工作流程。\n\n那这套体系服务的规模有多大？">
+    <div class="s6-title">AI 给证据，工程师做决策</div>
+    <div class="s6-flow-wrap">
+      <div class="s6-flow">
+        <div class="s6-node ai">多源证据</div>
+        <span class="s6-flow-arrow">→</span>
+        <div class="s6-node ai">AI 聚合提取</div>
+        <span class="s6-flow-arrow">→</span>
+        <div class="s6-node ai">AI 根因定位</div>
+        <div class="s6-divider">
+          <div class="s6-divider-label">🔴 根因 ≠ 结论</div>
+        </div>
+        <div class="s6-node eng">工程师核验修复</div>
+        <span class="s6-flow-arrow">→</span>
+        <div class="s6-node eng">发布回归</div>
+      </div>
+    </div>
+    <div class="s6-principles">
+      <div class="s6-principle">
+        <div class="s6-principle-icon">🔒</div>
+        <div class="s6-principle-text">源码在企业内网<br>受控处理<br>分析保留证据来源</div>
+      </div>
+      <div class="s6-principle">
+        <div class="s6-principle-icon">🔍</div>
+        <div class="s6-principle-text">证据不足时<br>继续补充现场<br>不急于下结论</div>
+      </div>
+      <div class="s6-principle">
+        <div class="s6-principle-icon">🤝</div>
+        <div class="s6-principle-text">每一步有<br>前一环的依据<br>和下一环的执行者</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: SCALE -->
+  <div class="slide s7" data-notes="我们这家'医院'运行规模有多大？五百多个项目在用，累计使用近六亿次，宕机分析近三百万次。病人越多，每一次误诊的代价就越大。原来每个科室各建一套检查流程，现在全院共用一套诊疗体系，省时省力。\n\n这背后是谁在推动？">
+    <div class="s7-title">真实运行规模，支撑平台落地</div>
+    <div class="s7-body">
+      <div class="s7-left">
+        <div class="s7-metric">
+          <div class="s7-metric-icon">📊</div>
+          <div>
+            <div class="s7-metric-num">500+</div>
+            <div class="s7-metric-label">平台使用项目</div>
+          </div>
+        </div>
+        <div class="s7-metric">
+          <div class="s7-metric-icon">🔄</div>
+          <div>
+            <div class="s7-metric-num">近 6 亿次</div>
+            <div class="s7-metric-label">平台使用次数</div>
+          </div>
+        </div>
+        <div class="s7-metric">
+          <div class="s7-metric-icon">🔍</div>
+          <div>
+            <div class="s7-metric-num">近 300 万次</div>
+            <div class="s7-metric-label">宕机分析次数</div>
+          </div>
+        </div>
+        <div class="s7-metric">
+          <div class="s7-metric-icon">👥</div>
+          <div>
+            <div class="s7-metric-num">近 60 万</div>
+            <div class="s7-metric-label">宕机用户数</div>
+          </div>
+        </div>
+      </div>
+      <div class="s7-right">
+        <div class="s7-eco">
+          <div class="s7-eco-center">CrashEye 2.0</div>
+          <div class="s7-eco-node">小米科技</div>
+          <div class="s7-eco-node">金山办公</div>
+          <div class="s7-eco-node">西山居</div>
+          <div class="s7-eco-node">中手游</div>
+          <div class="s7-eco-node">移动端</div>
+          <div class="s7-eco-node">PC · 主机</div>
+        </div>
+      </div>
+    </div>
+    <div class="s7-actions">
+      <div class="s7-action">
+        <div class="s7-action-icon">🔍</div>
+        <div class="s7-action-text">看趋势<br>提前发现高影响问题</div>
+      </div>
+      <div class="s7-action">
+        <div class="s7-action-icon">🤖</div>
+        <div class="s7-action-text">AI 联动<br>给出原因线索和修复方向</div>
+      </div>
+      <div class="s7-action">
+        <div class="s7-action-icon">✅</div>
+        <div class="s7-action-text">回看验证<br>确认问题是否消失</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: TEAM -->
+  <div class="slide s8" data-notes="我们团队六个人，由李爱华劳模创新工作室推进。最终目标是什么？对用户，是少生一次'病'、少一次中断；对团队，是让更多人能看懂检查报告、理解病情，不再只依赖少数老专家的经验。">
+    <div class="s8-left">
+      <div class="s8-team-title">
+        <span>李爱华劳模创新工作室</span><br>
+        6 人团队
+      </div>
+      <div class="s8-org">
+        <div class="s8-leader">
+          <div class="s8-leader-name">李爱华</div>
+          <div class="s8-leader-role">方案把关 · 跨部门协调 · 成果推广</div>
+        </div>
+        <div class="s8-members">
+          <div class="s8-member">
+            <div class="s8-member-name">潘亚楠</div>
+            <div class="s8-member-role">技术研发<br>专利沉淀</div>
+          </div>
+          <div class="s8-member">
+            <div class="s8-member-name">项目管理</div>
+            <div class="s8-member-role">协同推进</div>
+          </div>
+          <div class="s8-member">
+            <div class="s8-member-name">研发成员</div>
+            <div class="s8-member-role">协同落地</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="s8-right">
+      <div class="s8-pyramid">
+        <div class="s8-pyramid-layer top">
+          <div class="s8-pyramid-icon">🏭</div>
+          <div class="s8-pyramid-label">对行业</div>
+          <div class="s8-pyramid-desc">多平台、多引擎的质量方法<br>跨项目复制</div>
+        </div>
+        <div class="s8-pyramid-layer mid">
+          <div class="s8-pyramid-icon">💻</div>
+          <div class="s8-pyramid-label">对研发</div>
+          <div class="s8-pyramid-desc">沿着证据理解问题<br>专家经验得以传承</div>
+        </div>
+        <div class="s8-pyramid-layer bot">
+          <div class="s8-pyramid-icon">👤</div>
+          <div class="s8-pyramid-label">对用户</div>
+          <div class="s8-pyramid-desc">少一次崩溃<br>少一次使用中断</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: CLOSING -->
+  <div class="slide s9" data-notes="让每一次崩溃，都留下可复用的经验。让下一次定位，不必再从头开始。\n\n女职工用技术创新，守护千万用户的使用体验。\n\n谢谢各位评委。">
+    <div class="s9-line1">
+      让每一次崩溃，都留下可复用的经验<br>
+      让下一次定位，不必从头开始
+    </div>
+    <div class="s9-divider"></div>
+    <div class="s9-line2">
+      女职工用技术创新<br>
+      守护千万用户的使用体验
+    </div>
+    <div class="s9-footer">
+      智能崩溃分析平台 2.0（CrashEye 2.0）· 珠海金山数字网络科技有限公司
+    </div>
+  </div>
+
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <button class="nav-btn" onclick="prevSlide()">←</button>
+  <button class="nav-btn" onclick="nextSlide()">→</button>
+</div>
+
+<div class="page-indicator" id="pageIndicator"></div>
+
+<!-- SPEAKER NOTES -->
+<div class="notes-overlay" id="notesOverlay">
+  <div class="notes-title">📝 演讲稿提词</div>
+  <div id="notesContent"></div>
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+let current = 0;
+let notesVisible = false;
+
+function buildDots() {
+  const ind = document.getElementById('pageIndicator');
+  ind.innerHTML = '';
+  slides.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'page-dot' + (i === current ? ' active' : '');
+    dot.onclick = () => goToSlide(i);
+    ind.appendChild(dot);
+  });
+}
+
+function goToSlide(n) {
+  slides[current].classList.remove('active');
+  current = n;
+  slides[current].classList.add('active');
+  buildDots();
+  updateNotes();
+}
+
+function nextSlide() { if (current < slides.length - 1) goToSlide(current + 1); }
+function prevSlide() { if (current > 0) goToSlide(current - 1); }
+
+function updateNotes() {
+  const notes = slides[current].getAttribute('data-notes') || '';
+  document.getElementById('notesContent').innerHTML = notes.replace(/\\n/g, '<br>').replace(/◆/g, '<span style="color:#FF6B35">◆ [停顿]</span>');
+}
+
+function toggleNotes() {
+  notesVisible = !notesVisible;
+  document.getElementById('notesOverlay').classList.toggle('show', notesVisible);
+  updateNotes();
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); nextSlide(); }
+  else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
+  else if (e.key === 'n' || e.key === 'N') { toggleNotes(); }
+  else if (e.key === 'f' || e.key === 'F') { document.documentElement.requestFullscreen(); }
+});
+
+buildDots();
+updateNotes();
+</script>
+
+</body>
+</html>
